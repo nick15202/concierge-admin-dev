@@ -1,0 +1,25 @@
+
+<ul class="nav nav-tabs resource-list">
+
+    <li class="nav-item"><a  (click)='gridData("all")' class="nav-link" routerLink="user-brand"
+                            routerLinkActive="active">Opportunity</a></li>
+    <li class="nav-item"><a class="nav-link" routerLink="edit" routerLinkActive="active"
+       (click)='gridData("new")'>New</a></li>
+  </ul>
+  <br>
+<ag-grid-angular
+    #myGrid
+    style="height: 640px;"
+    class="ag-theme-balham"
+    [rowData]="rowData"
+    [columnDefs]="columnDefs"
+    [gridOptions]="gridOptions"
+    [pagination]=true
+    [paginationPageSize]="20"
+    (rowClicked)="onRowClicked($event)"
+>
+</ag-grid-angular>
+
+<button class="btn btn-primary btn-sm pull-right float-right" style="margin-top:20px;" (click) = "newListing()"><i class="glyphicon glyphicon-plus fa fa-plus"></i> New Contact</button>
+
+
