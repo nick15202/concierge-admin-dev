@@ -23,7 +23,7 @@
         </h3>
     </div>
     <div class="col-md-3 text-right">
-        <button type="button" class="btn btn-primary">Create Landing Page</button>
+        <button type="button" class="btn btn-primary" (click)="createlandingPage()">Create Landing Page <span id="landingBtn"><i class="fa"> </i></span></button>
     </div>
 </div>
 <hr />
@@ -36,7 +36,7 @@
         </div>
         <div class="col-md-2 float-right status_point">
             <h4>
-                <button class="green status_circle"></button> {{item.status}} / Id : {{item.listingId}}
+                <button class="green status_circle"></button> {{item.status}}
             </h4>
         </div>
     </div>
@@ -47,6 +47,7 @@
             </div>
         </div>
         <div class="col-md-2 float-right text-right  status_point">
+            Id : {{item.listingId}}
         </div>
     </div>
     <div class="row">
@@ -183,10 +184,10 @@
         </div>
         <div class="col-md-2 float-right text-right  status_point">
             <h4>
-                <button class="status_circle warning-color"></button> {{item.status}} / Id : {{item.listingId}}
+                <button class="status_circle warning-color"></button> {{item.status}} 
             </h4>
             <div class="list_id">
-                
+                Id : {{item.listingId}}
             </div>
         </div>
     </div>
@@ -199,10 +200,10 @@
         </div>
         <div class="col-md-2 float-right text-right  status_point">
             <h4>
-                <button class="status_circle danger-color"></button> {{item.status}} / Id : {{item.listingId}}
+                <button class="status_circle danger-color"></button> {{item.status}}
             </h4>
             <div class="list_id">
-                
+                Id : {{item.listingId}}
             </div>
         </div>
     </div>
