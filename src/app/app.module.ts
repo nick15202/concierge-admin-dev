@@ -11,7 +11,8 @@ import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './header/header.component';
 import { HeroComponent } from './hero/hero.component';
 // import './components/CheckMatrix';
-
+import { AgGridModule } from 'ag-grid-angular';
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,6 +23,8 @@ import { HeroComponent } from './hero/hero.component';
   imports: [
     BrowserModule,
     FormioModule,
+    HttpClientModule,
+    AgGridModule.withComponents([]),
     RouterModule.forRoot([
       {
         path: '',
