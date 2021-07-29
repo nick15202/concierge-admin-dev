@@ -35,6 +35,10 @@ export class ViewComponent {
                 }
             });
     }
+    openViewInfo(id) {
+        window.open(`https://property-concierge.ooba.co.za/listings/${id}`);
+    }
+
     getSchedule(value) {
         if (value) {
             if (value.indexOf('Date') < 0) {
