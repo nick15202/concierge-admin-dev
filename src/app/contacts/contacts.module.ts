@@ -64,7 +64,11 @@ import { FormioGrid } from 'angular-formio/grid';
           {
             path: 'notes',
             loadChildren: './notes/notes.module#NotesModule'
-          }
+          },
+          {
+            path: 'match-link',
+            loadChildren: './match-link/match-link.module#MatchLinkModule'
+          },
         ]
       }
     ])
