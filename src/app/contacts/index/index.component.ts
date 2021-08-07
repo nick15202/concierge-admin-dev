@@ -46,7 +46,7 @@ export class IndexComponent implements OnInit {
           sortable: true
       },
       {
-          headerName: 'created', width: 140, field: 'created', filter: 'agDateColumnFilter', sortable: true,
+          headerName: 'created', sort: 'desc', width: 140, field: 'created', filter: 'agDateColumnFilter', sortable: true,
           //   cellRenderer: (data) => {
           //     return data.value ? (new Date(data.value)).toLocaleDateString() : '';
           // }
