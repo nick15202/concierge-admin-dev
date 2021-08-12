@@ -162,6 +162,7 @@ export class IndexComponent implements OnInit {
     isGridReady: boolean = true;
     totalRows = undefined;
     urlParams = ''
+    public opportunity = 'opportunity';
   
     constructor(private listingService: ListingService, private route: ActivatedRoute, private datepipe: DatePipe, private router: Router,) { }
   
@@ -207,7 +208,9 @@ export class IndexComponent implements OnInit {
           if(this.activeTab == undefined){
              searchData = '';
 
-          }else{
+          }else if(this.activeTab  == this.opportunity){
+            searchData = '&data.contactStatus__nin=new,opportunityClosed';
+          } else{
          searchData = '&data.contactStatus=' + this.activeTab;
 
           }
