@@ -157,7 +157,7 @@ export class IndexComponent implements OnInit {
       paginationPageSize: 17
     };
     gridParams: any;
-    activeTab: '';
+    activeTab: 'opportunity';
     officeId;
     isGridReady: boolean = true;
     totalRows = undefined;
@@ -168,6 +168,7 @@ export class IndexComponent implements OnInit {
   
     ngOnInit() {
       this.officeId = '';
+      this.activeTab='opportunity';
       this.columnDefs.forEach((ele: any) => {
         if (ele.filter == "agNumberColumnFilter") {
           ele.filterParams = {
