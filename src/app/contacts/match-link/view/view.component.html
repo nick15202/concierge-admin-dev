@@ -11,7 +11,7 @@
     </div>
     <div class="col-md-3 text-right">
         <h3 class="status_con">
-            Status : {{contacts.contactStatus}}
+            Status : {{contacts?.contactStatus}}
         </h3>
     </div>
 </div>
@@ -31,7 +31,7 @@
     <div class="row listing_inside">
         <div class="col-md-10">
             <h3>
-                Listing : {{item.listingCode}}
+                Listing : {{item?.listingCode}}
             </h3>
         </div>
         <div class="col-md-2 float-right status_point">
@@ -42,7 +42,7 @@
     </div>
     <div class="row">
         <div class="col-md-10">
-            <div class="linking">
+            <div class="linking" *ngIf="matchingStatus == succeeded"></div>>
                 <a href="Javascript:void(0)"(click)="openViewInfo(item.listingId)">View Listing Information</a>
             </div>
         </div>
