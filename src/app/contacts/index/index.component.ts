@@ -454,7 +454,7 @@ export class IndexComponent implements OnInit {
     }
   
     newListing() {
-      this.router.navigate([`/residential/new`]);
+      this.router.navigate([`/contacts/new`]);
     }
   
   }
