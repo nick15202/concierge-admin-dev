@@ -3,230 +3,232 @@
     <li class="nav-item"><a class="nav-link active" routerLink="../../{{matchLinkIdFromRoute}}/view" routerLinkActive="active">View</a></li>
     <li class="nav-item"><a class="nav-link" routerLink="../../{{matchLinkIdFromRoute}}/edit" routerLinkActive="active">Edit</a></li>
 </ul> -->
-<div class="row">
-    <div class="col-md-9">
-        <h3 class="contracts">
-            Contact : <span *ngIf="contacts && contacts.fullName">{{contacts.fullName}}</span>
-        </h3>
-    </div>
-    <div class="col-md-3 text-right">
-        <h3 class="status_con">
-            Status : {{contacts.contactStatus}}
-        </h3>
-    </div>
-</div>
-<br />
-<div class="row align-items-center">
-    <div class="col-md-9">
-        <h3 class="landing_gen">
-            Landing Page Generation Status : <span style="color: #6ABD46;">{{matchingStatus}}</span>
-        </h3>
-    </div>
-    <div class="col-md-3 text-right">
-        <button type="button" class="btn btn-primary" (click)="createlandingPage()">Create Landing Page <span id="landingBtn"><i class="fa"> </i></span></button>
-    </div>
-</div>
-<hr />
-<div *ngFor="let item of succeededListings" id="listing_page">
-    <div class="row listing_inside">
-        <div class="col-md-10">
-            <h3>
-                Listing : {{item.listingCode}}
-            </h3>
-        </div>
-        <div class="col-md-2 float-right status_point">
-            <h4>
-                <button class="green status_circle"></button> {{item.status}}
-            </h4>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-10">
-            <div class="linking" *ngIf="matchingStatus == succeeded">
-                <a href="Javascript:void(0)"(click)="openViewInfo(item.listingId)">View Listing Information</a>
-            </div>
-        </div>
-        <div class="col-md-2 float-right text-right  status_point">
-            Id : {{item.listingId}}
-        </div>
-    </div>
     <div class="row">
         <div class="col-md-9">
-            <div class="feature_list">
-                <div>Featured</div>
-                <span>{{item.featured}}</span>
-            </div>
-            <div class="feature_list" *ngIf="item.pendingOffer == true">
-                <div>Pending</div>
-                <span>{{item.pendingOffer}}</span>
-            </div>
-            <div class="feature_list">
-                <div>Listing Notes</div>
-                <span>{{item.notes}}</span>
-            </div>
-            <div class="feature_list">
-                <div>Address</div>
-                <span>{{item.address}}</span>
-            </div>
+            <h3 class="contracts">
+                Contact : <span *ngIf="contacts && contacts.fullName">{{contacts.fullName}}</span>
+            </h3>
         </div>
-        <div class="col-md-3 agent_info">
-            <div class="card">
-                <div class="card-body">
-                    <p class="card-text">Agent Information</p>
-                    <div class="blocks">
-                        <div>Name</div>
-                        <span>{{item.agentName}}</span>
-                    </div>
-                    <div class="blocks">
-                        <div>Email</div>
-                        <span><a href = "mailto:{{item.agentEmail}}">{{item.agentEmail}}</a></span>
-                    </div>
-                    <div class="blocks">
-                        <div>Mobile</div>
-                        <span>{{item.agentMobile}}</span>
-                    </div>
-                </div>
-            </div>
+        <div class="col-md-3 text-right">
+            <h3 class="status_con">
+                Status : {{contacts.contactStatus}}
+            </h3>
         </div>
     </div>
     <br />
-    <div class="row" id="feecback_form" >
-        <div class="col-md-4" *ngIf="getFeedback(item.feedback)">
-            <div class="card">
-                <div class="card-header text-center">
-                    <p class="card-text">Feed Back</p>
-                </div>
-                <div class="card-body " >
-                    <div class="feature_list" >
-                        <div>Feedback</div>
-                        <span>{{getFeedback(item.feedback) ? item.feedback: ""}}</span>
-                    </div>
-                    <div class="feature_list">
-                        <div>Feedback Notes</div>
-                        <span>{{getFeedbackNote(item.feedbackNote) ? item.feedbackNote: ""}}</span>
-                    </div>
-                </div>
-            </div>
+    <div class="row align-items-center">
+        <div class="col-md-9">
+            <h3 class="landing_gen">
+                Landing Page Generation Status : <span style="color: #6ABD46;">{{matchingStatus}}</span>
+            </h3>
         </div>
-        <div class="col-md-4" *ngIf="getSchedule(item.schedule1)">
-            <div class="card">
-                <div class="card-header text-center">
-                    <p class="card-text">Schedule</p>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-8 feature_list">
-                            <div>Schedule Options</div>
-                            <span>{{getSchedule(item.schedule1) ? item.schedule1: ""}}</span>
-                        </div>
-                        <div class="col-md-4 feature_list">
-                            <div>Agreed Time</div>
-                            <span>{{item.agreedTime}}</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4" *ngIf="item.pendingOffer == true">
-            <div class="card" >
-                <div class="card-header text-center">
-                    <p class="card-text">Offer</p>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-8">
-                            <div class="feature_list">
-                                <div>Status</div>
-                                <span>{{item.offerStatus}}</span>
-                            </div>
-                            <div class="feature_list">
-                                <div>Date</div>
-                                <span>{{item.offerDate}}</span>
-                            </div>
-                            <div class="feature_list">
-                                <div>Sale Date</div>
-                                <span>{{item.saleConcludedDate}}</span>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="feature_list">
-                                <div>Amount</div>
-                                <span>{{item.offerAmount}}</span>
-                            </div>
-                            <div class="feature_list">
-                                <div>Accepted Date</div>
-                                <span>{{item.acceptedDate}}</span>
-                            </div>
-                            <div class="feature_list">
-                                <div>Sale Amount</div>
-                                <span>{{item.saleAmount}}</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="col-md-3 text-right">
+            <button type="button" class="btn btn-primary" (click)="createlandingPage()">Create Landing Page <span
+                    id="landingBtn"><i class="fa"> </i></span></button>
         </div>
     </div>
     <hr />
-</div>
-<div *ngFor="let item of pendingListings" id="listing_page">
-    <h3>Listing</h3>
-    <div class="row">
-        <div class="col-md-10">
-            <div class="feature_list">
-                <div>Featured</div>
-                <span>{{item.featured}}</span>
+    <div *ngFor="let item of succeededListings" id="listing_page">
+        <div class="row listing_inside">
+            <div class="col-md-10">
+                <h3>
+                    Listing : {{item.listingCode}}
+                </h3>
             </div>
-            <div class="feature_list">
-                <div>Listing Notes</div>
-                <span>{{item.notes}}</span>
+            <div class="col-md-2 float-right status_point">
+                <h4>
+                    <button class="green status_circle"></button> {{item.status}}
+                </h4>
             </div>
         </div>
-        <div class="col-md-2 float-right text-right  status_point">
-            <h4>
-                <button class="status_circle warning-color"></button> {{item.status}} 
-            </h4>
-            <div class="list_id">
+        <div class="row">
+            <div class="col-md-10">
+                <div class="linking">
+                    <a href="Javascript:void(0)" *ngIf="contacts && contacts.matchingStatus == succeeded"
+                        (click)="openViewInfo(item.listingId)">View Listing Information</a>
+                </div>
+            </div>
+            <div class="col-md-2 float-right text-right  status_point">
                 Id : {{item.listingId}}
             </div>
         </div>
-    </div>
-    <hr />
-</div>
-<div *ngFor="let item of failedListings" id="listing_page">
-    <div class="row">
-        <div class="col-md-10">
-            <h3>Listing</h3>
-        </div>
-        <div class="col-md-2 float-right text-right  status_point">
-            <h4>
-                <button class="status_circle danger-color"></button> {{item.status}}
-            </h4>
-            <div class="list_id">
-                Id : {{item.listingId}}
+        <div class="row">
+            <div class="col-md-9">
+                <div class="feature_list">
+                    <div>Featured</div>
+                    <span>{{item.featured}}</span>
+                </div>
+                <div class="feature_list" *ngIf="item.pendingOffer == true">
+                    <div>Pending</div>
+                    <span>{{item.pendingOffer}}</span>
+                </div>
+                <div class="feature_list">
+                    <div>Listing Notes</div>
+                    <span>{{item.notes}}</span>
+                </div>
+                <div class="feature_list">
+                    <div>Address</div>
+                    <span>{{item.address}}</span>
+                </div>
             </div>
-        </div>
-    </div>
-    <div class="row" id="feecback_form1">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header text-center">
-                    <p class="card-text">{{item.failureReason}}</p>
+            <div class="col-md-3 agent_info">
+                <div class="card">
+                    <div class="card-body">
+                        <p class="card-text">Agent Information</p>
+                        <div class="blocks">
+                            <div>Name</div>
+                            <span>{{item.agentName}}</span>
+                        </div>
+                        <div class="blocks">
+                            <div>Email</div>
+                            <span><a href="mailto:{{item.agentEmail}}">{{item.agentEmail}}</a></span>
+                        </div>
+                        <div class="blocks">
+                            <div>Mobile</div>
+                            <span>{{item.agentMobile}}</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-md-10">
-            <div class="feature_list">
-                <div>Featured</div>
-                <span>{{item.featured}}</span>
+        <br />
+        <div class="row" id="feecback_form">
+            <div class="col-md-4" *ngIf="getFeedback(item.feedback)">
+                <div class="card">
+                    <div class="card-header text-center">
+                        <p class="card-text">Feed Back</p>
+                    </div>
+                    <div class="card-body ">
+                        <div class="feature_list">
+                            <div>Feedback</div>
+                            <span>{{getFeedback(item.feedback) ? item.feedback: ""}}</span>
+                        </div>
+                        <div class="feature_list">
+                            <div>Feedback Notes</div>
+                            <span>{{getFeedbackNote(item.feedbackNote) ? item.feedbackNote: ""}}</span>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="feature_list">
-                <div>Listing Notes</div>
-                <span>{{item.notes}}</span>
+            <div class="col-md-4" *ngIf="getSchedule(item.schedule1)">
+                <div class="card">
+                    <div class="card-header text-center">
+                        <p class="card-text">Schedule</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-8 feature_list">
+                                <div>Schedule Options</div>
+                                <span>{{getSchedule(item.schedule1) ? item.schedule1: ""}}</span>
+                            </div>
+                            <div class="col-md-4 feature_list">
+                                <div>Agreed Time</div>
+                                <span>{{item.agreedTime}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4" *ngIf="item.pendingOffer == true">
+                <div class="card">
+                    <div class="card-header text-center">
+                        <p class="card-text">Offer</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="feature_list">
+                                    <div>Status</div>
+                                    <span>{{item.offerStatus}}</span>
+                                </div>
+                                <div class="feature_list">
+                                    <div>Date</div>
+                                    <span>{{item.offerDate}}</span>
+                                </div>
+                                <div class="feature_list">
+                                    <div>Sale Date</div>
+                                    <span>{{item.saleConcludedDate}}</span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="feature_list">
+                                    <div>Amount</div>
+                                    <span>{{item.offerAmount}}</span>
+                                </div>
+                                <div class="feature_list">
+                                    <div>Accepted Date</div>
+                                    <span>{{item.acceptedDate}}</span>
+                                </div>
+                                <div class="feature_list">
+                                    <div>Sale Amount</div>
+                                    <span>{{item.saleAmount}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
+        <hr />
     </div>
-    <hr />
-</div>
+    <div *ngFor="let item of pendingListings" id="listing_page">
+        <h3>Listing</h3>
+        <div class="row">
+            <div class="col-md-10">
+                <div class="feature_list">
+                    <div>Featured</div>
+                    <span>{{item.featured}}</span>
+                </div>
+                <div class="feature_list">
+                    <div>Listing Notes</div>
+                    <span>{{item.notes}}</span>
+                </div>
+            </div>
+            <div class="col-md-2 float-right text-right  status_point">
+                <h4>
+                    <button class="status_circle warning-color"></button> {{item.status}}
+                </h4>
+                <div class="list_id">
+                    Id : {{item.listingId}}
+                </div>
+            </div>
+        </div>
+        <hr />
+    </div>
+    <div *ngFor="let item of failedListings" id="listing_page">
+        <div class="row">
+            <div class="col-md-10">
+                <h3>Listing</h3>
+            </div>
+            <div class="col-md-2 float-right text-right  status_point">
+                <h4>
+                    <button class="status_circle danger-color"></button> {{item.status}}
+                </h4>
+                <div class="list_id">
+                    Id : {{item.listingId}}
+                </div>
+            </div>
+        </div>
+        <div class="row" id="feecback_form1">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header text-center">
+                        <p class="card-text">{{item.failureReason}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-10">
+                <div class="feature_list">
+                    <div>Featured</div>
+                    <span>{{item.featured}}</span>
+                </div>
+                <div class="feature_list">
+                    <div>Listing Notes</div>
+                    <span>{{item.notes}}</span>
+                </div>
+            </div>
+        </div>
+        <hr />
+    </div>

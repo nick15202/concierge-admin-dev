@@ -9,7 +9,7 @@ declare let $: any;
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ViewComponent {
-    public contacts: any;
+    contacts: any;
     public succeededListings: any = [];
     public data: any;
     public matchingStatus: any;
