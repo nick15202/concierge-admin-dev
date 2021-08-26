@@ -17,12 +17,12 @@ type tabTypes = 'new' | 'opportunityClosed';
 })
 export class IndexComponent implements OnInit {
     @ViewChild('agGrid') agGrid: AgGridAngular;
-    private gridApi;
-    private gridColumnApi;
+    public gridApi;
+    public gridColumnApi;
   
-    private defaultColDef;
-    private popupParent;
-    private rowData1: any[];
+    public defaultColDef;
+    public popupParent;
+    public rowData1: any[];
     columnDefs = [
       {headerName: 'Name', width: 190, field: 'fullName', filter: 'agTextColumnFilter', sortable: true},
       {headerName: 'Status', width: 160, field: 'contactStatus', filter: 'agTextColumnFilter', sortable: true},
