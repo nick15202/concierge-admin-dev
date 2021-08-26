@@ -1,5 +1,7 @@
 
-<ul _ngcontent-ejg-c4="" class="nav nav-tabs resource-list">
+<div style="    display: flex;
+justify-content: space-between;">
+  <ul _ngcontent-ejg-c4="" class="nav nav-tabs resource-list">
 
     <li class="nav-item"><a _ngcontent-ejg-c4="" (click)='handleTabClick(opportunity)' class="nav-link" routerlink="user-brand"
         routerlinkactive="active" ng-reflect-router-link="user-brand">Opportunity</a></li>
@@ -7,11 +9,21 @@
         ng-reflect-router-link="edit" (click)='handleTabClick("new")'>New</a></li>
         <li class="nav-item"><a _ngcontent-ejg-c4="" class="nav-link" routerlink="edit" routerlinkactive="active"
             ng-reflect-router-link="edit" (click)='handleTabClick("opportunityClosed")'>Closed</a></li>
+            
   </ul>
+  <button class="btn btn-primary "   style="padding: 0.5em 1.2em;margin: 0;" (click)="onBtnExport()" [disabled]="isExportDisable" >Export CSV</button>
+</div>
   <br>
   <div *ngIf="isGridReady" style="height:556px;">
     <ag-grid-angular  #myGrid style="width: 100%; height: 100%" class="ag-theme-balham" [gridOptions]="gridOptions"
     [columnDefs]="columnDefs" (gridReady)="onGridReady($event)" (cellClicked)="cellClicked($event)"></ag-grid-angular>
+  </div>
+  <div style="flex: 1 1 0; position: relative;" hidden>
+    <div id="gridContainer">
+      <ag-grid-angular #agGrid style="width: 100%; height: 100%;" id="myGrid" class="ag-theme-alpine"
+        [defaultColDef]="defaultColDef" [suppressExcelExport]="true" [popupParent]="popupParent" [columnDefs]="columnDefs"
+        [rowData]="rowData1" (gridReady)="onGridReady1($event)"></ag-grid-angular>
+    </div>
   </div>
 
 <button class="btn btn-primary btn-sm pull-right float-right" style="margin-top:20px;" (click) = "newListing()"><i class="glyphicon glyphicon-plus fa fa-plus"></i> New Contact</button>

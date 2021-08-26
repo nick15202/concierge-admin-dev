@@ -10,6 +10,7 @@ declare let $: any;
 })
 export class ViewComponent {
     contacts: any;
+    isStatusLink = false;
     public succeededListings: any = [];
     public data: any;
     public matchingStatus: any;
@@ -32,6 +33,9 @@ export class ViewComponent {
                     this.pendingListings = res.data.listings.filter(p => p.status.indexOf('pending') >= 0);
                     this.failedListings = res.data.listings.filter(p => p.status.indexOf('failure') >= 0);
                     this.matchingStatus = res.data.matchingStatus;
+                    if (this.matchingStatus === 'succeeded') {
+                        this.isStatusLink = true;
+                    }
                 }
             });
     }

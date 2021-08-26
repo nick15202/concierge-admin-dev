@@ -17,6 +17,12 @@ type tabTypes = 'new' | 'opportunityClosed';
 })
 export class IndexComponent implements OnInit {
     @ViewChild('agGrid') agGrid: AgGridAngular;
+    private gridApi;
+    private gridColumnApi;
+  
+    private defaultColDef;
+    private popupParent;
+    private rowData1: any[];
     columnDefs = [
       {headerName: 'Name', width: 190, field: 'fullName', filter: 'agTextColumnFilter', sortable: true},
       {headerName: 'Status', width: 160, field: 'contactStatus', filter: 'agTextColumnFilter', sortable: true},
@@ -161,6 +167,7 @@ export class IndexComponent implements OnInit {
     officeId;
     isGridReady: boolean = true;
     totalRows = undefined;
+    isExportDisable = false;
     urlParams = ''
     public opportunity = 'opportunity';
   
@@ -455,6 +462,80 @@ export class IndexComponent implements OnInit {
   
     newListing() {
       this.router.navigate([`/contacts/new`]);
+    }
+    onBtnExport() {
+
+      this.isExportDisable = true;
+      
+      let searchData: any;
+      if (this.activeTab == undefined) {
+        searchData = '';
+
+      } else if (this.activeTab == this.opportunity) {
+        searchData = '&data.contactStatus__nin=new,opportunityClosed';
+      } else {
+        searchData = '&data.contactStatus=' + this.activeTab;
+      }
+      this.activeTab;
+      fetch(`https://ooba-digitaloffice.form.io/contact/submission?sort=-created&created__exists=true&created__ne=null&skip=0&limit=5000${searchData}`)
+        .then(r => r.json()).then(j => {
+          const parSedData = [];
+          for (let i = 0; i < j.length; i++) {
+            const element = j[i];
+            parSedData.push({
+  
+              'fullName': element.data.fullName,
+              'contactStatus': element.data.contactStatus,
+              'homeLoanQualificationAmount': element.data.homeLoanQualificationAmount,
+              'assignedTo': element.data.assignedTo ? element.data.assignedTo.data.firstName + ' ' + element.data.assignedTo.data.lastName : '',
+              'email': element.data.email,
+              'mobile': element.data.mobile,
+              'lastUpdated': element.data.lastUpdated ? this.datepipe.transform(element.data.lastUpdated, 'd/M/yy, h:mm a') : '',
+              'opportunityStatus': element.data.opportunityStatus ? this.datepipe.transform(element.data.opportunityStatus, 'd/M/yy, h:mm a') : '',
+              'opportunityDate': element.data.opportunityStatus ? this.datepipe.transform(element.data.opportunityStatus, 'd/M/yy, h:mm a') : '',
+              'followUpDate': element.data.followUpDate ? this.datepipe.transform(element.data.followUpDate, 'd/M/yy, h:mm a') : '',
+              'futureFollowUp': element.data.futureFollowUp ? this.datepipe.transform(element.data.futureFollowUp, 'd/M/yy, h:mm a') : '',
+              'recommendAgency': element.data.recommendAgency,
+              'existingPropertySale	': element.data.existingPropertySale,
+              'houseCurrentlyOnMarket': element.data.houseCurrentlyOnMarket,
+              //    "primarySuburb": element.data.primarySuburb ? element.data.suburb:'',
+              'createdTime': element.data.createdTime ? this.datepipe.transform(element.data.createdTime, 'd/M/yy, h:mm a') : '',
+              'created': element.created ? this.datepipe.transform(element.created, 'd/M/yy, h:mm a') : '',
+              'updated': element.modified ? this.datepipe.transform(element.modified, 'd/M/yy, h:mm a') : '',
+              'id': element._id,
+              'newStatus': element.data.newStatus ? this.datepipe.transform(element.data.newStatus, 'd/M/yy, h:mm a') : '',
+              'campaignedStatus': element.data.campaignedStatus ? this.datepipe.transform(element.data.campaignedStatus, 'd/M/yy, h:mm a') : '',
+              'noStockStatus': element.data.noStockStatus ? this.datepipe.transform(element.data.noStockStatus, 'd/M/yy, h:mm a') : '',
+              'assignedStatus': element.data.assignedStatus ? this.datepipe.transform(element.data.assignedStatus, 'd/M/yy, h:mm a') : '',
+              'propertiesMatched': element.data.propertiesMatched ? this.datepipe.transform(element.data.propertiesMatched, 'd/M/yy, h:mm a') : '',
+              'micrositeInitiated': element.data.micrositeInitiated ? this.datepipe.transform(element.data.micrositeInitiated, 'd/M/yy, h:mm a') : '',
+              'micrositeCreated': element.data.micrositeCreated ? this.datepipe.transform(element.data.micrositeCreated, 'd/M/yy, h:mm a') : '',
+              'micrositeEmail': element.data.micrositeEmail ? this.datepipe.transform(element.data.micrositeEmail, 'd/M/yy, h:mm a') : '',
+              'customerFeedbackReceived': element.data.customerFeedbackReceived ? this.datepipe.transform(element.data.customerFeedbackReceived, 'd/M/yy, h:mm a') : '',
+              'customerScheduleRequested': element.data.customerScheduleRequested ? this.datepipe.transform(element.data.customerScheduleRequested, 'd/M/yy, h:mm a') : '',
+              'viewingScheduled': element.data.viewingScheduled ? this.datepipe.transform(element.data.viewingScheduled, 'd/M/yy, h:mm a') : '',
+              'viewing': element.data.viewing ? this.datepipe.transform(element.data.viewing, 'd/M/yy, h:mm a') : '',
+              'contactedAgent': element.data.contactedAgent ? this.datepipe.transform(element.data.contactedAgent, 'd/M/yy, h:mm a') : '',
+              'contactPreparingOffer': element.data.contactPreparingOffer ? this.datepipe.transform(element.data.contactPreparingOffer, 'd/M/yy, h:mm a') : '',
+              'opportunityClosed': element.data.opportunityClosed ? this.datepipe.transform(element.data.opportunityClosed, 'd/M/yy, h:mm a') : '',
+              'customerStillLooking': element.data.customerStillLooking ? this.datepipe.transform(element.data.customerStillLooking, 'd/M/yy, h:mm a') : '',
+              'opportunityClosed1': element.data.opportunityClosed1 ? this.datepipe.transform(element.data.opportunityClosed1, 'd/M/yy, h:mm a') : '',
+              'boughtMatchedProperty': element.data.boughtMatchedProperty ? this.datepipe.transform(element.data.boughtMatchedProperty, 'd/M/yy, h:mm a') : '',
+  
+            });
+          }
+          this.rowData1 = parSedData;
+          setTimeout(() => {
+            this.gridApi.exportDataAsCsv();
+            this.isExportDisable=false;
+          }, 3000);
+        });
+      
+      }
+  
+    onGridReady1(params) {
+      this.gridApi = params.api;
+      this.gridColumnApi = params.columnApi;
     }
   
   }
