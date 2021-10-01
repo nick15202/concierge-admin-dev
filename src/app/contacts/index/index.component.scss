@@ -1,0 +1,55 @@
+#upper_nav{
+    .nav{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        border: none;
+
+        li{
+            flex:0 0 16%;
+
+            a{
+                border: none;
+                background: #e0e0e0;
+                border-radius: 10px;
+                padding: 15px;
+                color: #000;
+                text-align: left;
+                display: flex;
+                justify-content: space-between;
+                min-height: 100px;
+                align-items: center;
+
+                &.active{
+                    background: #f6f6f6; 
+                    font-weight: normal;
+                }
+
+                img{
+                    height: 60px;
+                }
+
+                .left_side {
+                    padding-left: 14px;
+
+                    .title {
+                        font-size: 18px;
+                        margin: 0 0 3px;
+                        display: block;
+                    }
+
+                    article {
+                        font-size: 13px;
+                    }
+                }
+            }
+        }
+    }
+
+    .download_link {
+        color: #6ABD46;
+        border-bottom: 1px solid;
+        display: inline-block;
+        margin: 33px 0 0;
+    }
+}

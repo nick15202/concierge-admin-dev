@@ -164,11 +164,14 @@ export class IndexComponent implements OnInit {
     };
     gridParams: any;
     activeTab: 'opportunity';
+    condition: any;
+    isDownloadBtnShown: boolean = true ;
     officeId;
     isGridReady: boolean = true;
     totalRows = undefined;
     isExportDisable = false;
     urlParams = ''
+    activeLiClass: string = "";
     public opportunity = 'opportunity';
   
     constructor(private listingService: ListingService, private route: ActivatedRoute, private datepipe: DatePipe, private router: Router,) { }
@@ -198,12 +201,19 @@ export class IndexComponent implements OnInit {
       })
     }
   
-    handleTabClick(type) {
+    handleTabClick(type, condition, selectedTab) {
       this.totalRows = undefined;
-      
+      this.activeLiClass = selectedTab;
+      if(selectedTab == "Reporting")
+      {
+        this.isDownloadBtnShown = false;
+      }else{
+        this.isDownloadBtnShown = true;
+      }
       // if clicked tab is myListing, i need to find out another way to get mylisting other than using username and filtering out data with that username.
       // is it possible to use any type of ID to only fetch data of mylisting rather than filtering out.
       this.activeTab = type
+      this.condition = condition
       this.isGridReady = false;
       setTimeout(() => {
         this.isGridReady = true;
@@ -213,16 +223,28 @@ export class IndexComponent implements OnInit {
     createUrlParams(startRow: number, endRow: number, sort, filter) {
       return new Promise((resolve) => {
           let searchData:any;
+          console.log(this.condition,this.activeTab,this.opportunity);
           if(this.activeTab == undefined){
              searchData = '';
 
           }else if(this.activeTab  == this.opportunity){
             searchData = '&data.contactStatus__nin=new,opportunityClosed';
+          }else if(this.activeLiClass  == "Follow"){
+            let startdate = new Date();
+                startdate.setUTCHours(0);
+                startdate.setUTCMinutes(0);
+                let startDateTime = startdate.toISOString();
+            let enddate = new Date(new Date().getTime() + 24 * 60 * 60 * 1000);
+                enddate.setUTCHours(23);
+                enddate.setUTCMinutes(50);
+                let endDateTime = enddate.toISOString();
+                console.log(startDateTime,endDateTime);
+            searchData = '&data.followUpDate__gte=' + startDateTime + '&data.followUpDate__lte=' + endDateTime + '&data.contactStatus'+this.condition+'=' + this.activeTab;
           } else{
-         searchData = '&data.contactStatus=' + this.activeTab;
-
+            searchData = '&data.contactStatus'+this.condition+'=' + this.activeTab;
+            
           }
-
+          //
         let sortData = '-created';
         let limit = 17;
   
@@ -466,15 +488,15 @@ export class IndexComponent implements OnInit {
     onBtnExport() {
 
       this.isExportDisable = true;
-      
+
       let searchData: any;
       if (this.activeTab == undefined) {
         searchData = '';
 
       } else if (this.activeTab == this.opportunity) {
-        searchData = '&data.contactStatus__nin=new,opportunityClosed';
+        searchData = '&data.contactStatus__ne=new';
       } else {
-        searchData = '&data.contactStatus=' + this.activeTab;
+        searchData = '&data.contactStatus__ne=' + this.activeTab;
       }
       this.activeTab;
       fetch(`https://ooba-digitaloffice.form.io/contact/submission?sort=-created&created__exists=true&created__ne=null&skip=0&limit=5000${searchData}`)

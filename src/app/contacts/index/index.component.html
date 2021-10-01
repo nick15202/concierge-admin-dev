@@ -1,17 +1,83 @@
 
-<div style="    display: flex;
-justify-content: space-between;">
+<div id="upper_nav">
   <ul _ngcontent-ejg-c4="" class="nav nav-tabs resource-list">
 
-    <li class="nav-item"><a _ngcontent-ejg-c4="" (click)='handleTabClick(opportunity)' class="nav-link" routerlink="user-brand"
-        routerlinkactive="active" ng-reflect-router-link="user-brand">Opportunity</a></li>
-    <li class="nav-item"><a _ngcontent-ejg-c4="" class="nav-link" routerlink="edit" routerlinkactive="active"
-        ng-reflect-router-link="edit" (click)='handleTabClick("new")'>New</a></li>
-        <li class="nav-item"><a _ngcontent-ejg-c4="" class="nav-link" routerlink="edit" routerlinkactive="active"
-            ng-reflect-router-link="edit" (click)='handleTabClick("opportunityClosed")'>Closed</a></li>
-            
+      <li class="nav-item">
+          <a _ngcontent-ejg-c4="" [ngClass]='activeLiClass == "Match" ? "active" : ""' (click)='handleTabClick("assigned,opportunity,unassigned","__in", "Match")' class="nav-link" routerlink="user-brand"
+            routerlinkactive="active" ng-reflect-router-link="user-brand">
+            <img src="./assets/images/1.png">
+              <div class="left_side">
+                <span class="title">To Match</span>
+                <article>
+                  Leads that need properties matched to their needs
+                </article>
+              </div>
+          </a>
+      </li>
+
+      <li class="nav-item">
+        <a _ngcontent-ejg-c4="" [ngClass]='activeLiClass == "Follow" ? "active" : ""' (click)='handleTabClick("customerFeedbackReceived,customerScheduleRequested","__in","Follow")' class="nav-link" routerlink="edit"
+        ng-reflect-router-link="user-brand">
+          <img src="./assets/images/2.png">
+          <div class="left_side">
+            <span class="title">Follow Up</span>
+            <article>
+              Leads that require follow-up over the next few days
+            </article>
+          </div>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a _ngcontent-ejg-c4="" [ngClass]='activeLiClass == "Errors" ? "active" : ""' (click)='handleTabClick("micrositeInitiated","","Errors")' class="nav-link" routerlink="edit" ng-reflect-router-link="user-brand">
+          <img src="./assets/images/3.png">
+          <div class="left_side">
+            <span class="title">Errors</span>
+            <article>
+              Leads with property matches that need attention
+            </article>
+          </div>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a _ngcontent-ejg-c4="" [ngClass]='activeLiClass == "Awaiting" ? "active" : ""' (click)='handleTabClick("micrositeEmailSent","","Awaiting")' class="nav-link" routerlink="edit" ng-reflect-router-link="user-brand">
+          <img src="./assets/images/4.png">
+          <div class="left_side">
+            <span class="title">Awaiting</span>
+            <article>
+              Leads that have been sent a microsite
+            </article>
+          </div>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a _ngcontent-ejg-c4="" [ngClass]='activeLiClass == "Closed" ? "active" : ""' (click)='handleTabClick("opportunityClosed","","Closed")' class="nav-link" routerlink="edit" ng-reflect-router-link="user-brand">
+          <img src="./assets/images/5.png">
+          <div class="left_side">
+            <span class="title">Closed</span>
+            <article>
+              Previously engaged leads that have been closed
+            </article>
+          </div>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a _ngcontent-ejg-c4="" [ngClass]='activeLiClass == "Reporting" ? "active" : ""' (click)='handleTabClick("new","__nin","Reporting")' class="nav-link" routerlink="edit" ng-reflect-router-link="user-brand">
+          <img src="./assets/images/6.png">
+              <div class="left_side">
+                <span class="title">Reporting</span>
+                <article>
+                  Download contents that have completed the questionairre
+                </article>
+              </div>
+            </a>
+          </li>
   </ul>
-  <button class="btn btn-primary "   style="padding: 0.5em 1.2em;margin: 0;" (click)="onBtnExport()" [disabled]="isExportDisable" >Export CSV</button>
+      <a *ngIf="!isDownloadBtnShown" (click)="onBtnExport()" class="download_link">Download Latest Export for Reporting</a>
+  <!--button class="btn btn-primary "   style="padding: 0.5em 1.2em;margin: 0;" (click)="onBtnExport()" [disabled]="isExportDisable" >Export CSV</button-->
 </div>
   <br>
   <div *ngIf="isGridReady" style="height:556px;">

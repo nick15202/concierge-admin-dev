@@ -28,7 +28,7 @@ import { HttpClientModule } from '@angular/common/http';
     RouterModule.forRoot([
       {
         path: '',
-        redirectTo: '/home',
+        redirectTo: '/contacts',
         pathMatch: 'full'
       },
       {
